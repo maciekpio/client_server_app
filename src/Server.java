@@ -1,12 +1,50 @@
 import java.net.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Server {
+
+    //fonction pour placer la database dans la main memory
+    public static Map<Integer, List<String>> getIdMap(final String pathToFile) throws IOException {
+        // we'll use this later to store our mappings
+        final Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+        // read the file into a String
+        final String rawFileContents = new String(Files.readAllBytes(Paths.get(pathToFile)));
+        // assumes each line is an ID + value
+        final String[] fileLines = rawFileContents.split("\\r?\\n");
+        // iterate over every line, and create a mapping for the ID to Value
+        for (final String line : fileLines) {
+            Integer id = null;
+            try {
+                // assumes the id is part 1 of a 2 part line in CSV "," format
+                id = Integer.parseInt(line.split("@@@")[0]);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            // assumes the value is part 2 of a 2 part line in CSV "," format
+            final String value = line.split("@@@")[1];
+            // put the pair into our map
+            map.computeIfAbsent(id,k->new ArrayList<>()).add(value);
+        }
+        return map;
+    }
+
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
             System.err.println("Usage: java KnockKnockServer <port number>");
             System.exit(1);
         }
+
+        Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
+
+        //test du map
+
+        /*final String theText = map.get(1).get(1);
+        final int a=map.get(0).size();
+        System.out.println(a);*/
+
 
         int portNumber = Integer.parseInt(args[0]);
 
