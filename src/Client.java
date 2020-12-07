@@ -23,16 +23,17 @@ public class Client {
                     new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
             String fromUser;
-            while ((fromServer = in.readLine()) != null) {
-                System.out.print("Server: " + fromServer);
-                if (fromServer.equals("Bye."))
-                    break;
-
+            while(true) {
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
                     System.out.println("Client: " + fromUser);
                     out.println(fromUser);
                 }
+                System.out.println("Server: ");
+                while (!(fromServer = in.readLine()).equals("")) {
+                    System.out.print(fromServer + "\r\n");
+                }
+                fromUser=null;
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);

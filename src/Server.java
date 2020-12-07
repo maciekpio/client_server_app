@@ -59,14 +59,10 @@ public class Server {
 
             // Initiate conversation with client
             Protocol p = new Protocol();
-            outputLine = p.processInput(null,map);
-            out.println(outputLine);
 
             while ((inputLine = in.readLine()) != null) {
                 outputLine = p.processInput(inputLine,map);
                 out.println(outputLine);
-                if (outputLine.equals("Bye."))
-                    break;
             }
         } catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
