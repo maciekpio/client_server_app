@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.util.stream.Collectors;
 
 public class Client {
     public static void main(String[] args) throws IOException {
@@ -22,9 +23,8 @@ public class Client {
                     new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
             String fromUser;
-
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
+                System.out.print("Server: " + fromServer);
                 if (fromServer.equals("Bye."))
                     break;
 
