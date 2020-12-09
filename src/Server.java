@@ -37,7 +37,7 @@ public class Server {
             System.exit(1);
         }
 
-        Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
+        Map<Integer, List<String>> map = getIdMap("C:\\SINF2MS\\LINGI2241\\Project\\client_server_app\\dbdata.txt");
 
         //test du map
 

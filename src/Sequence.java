@@ -1,0 +1,192 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.io.*;
+
+public class Sequence {
+
+    private String[] sequence;
+    private long sequence_seed;     //a seed to generate the same sequence
+    private int regex_complexity;   //the number of word in the regex, 0 < regex_complexity
+    private int sequence_length;    //the number of request in the sequence
+    private int request_variance;   //the the number of different request in the sequence, if request_variance == sequence_length all the request are different
+
+    public Sequence(long sequence_seed, int regex_complexity, int sequence_length, int request_variance, String file_path) {
+
+        this.sequence_seed = sequence_seed;
+        this.regex_complexity = regex_complexity;
+        this.sequence_length = sequence_length;
+        this.request_variance = request_variance;
+
+        this.sequence = generateSequence(file_path);
+    }
+
+
+    public Sequence(long sequence_seed) {
+
+        try {
+
+            String file_path =  "sequences/" + String.valueOf(sequence_seed) + ".txt";
+            File file = new File(file_path);
+
+            if (file.exists()) {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+
+                this.sequence_seed = sequence_seed;
+                this.regex_complexity = Integer.parseInt(br.readLine());
+                this.sequence_length = Integer.parseInt(br.readLine());
+                this.request_variance = Integer.parseInt(br.readLine());
+
+                ArrayList<String> sequence_AL = new ArrayList<String>();
+                String line;
+                while ((line = br.readLine()) != null)
+                    sequence_AL.add(line);
+                br.close();
+                String[] file_table = new String[sequence_AL.size()];
+                this.sequence = sequence_AL.toArray(file_table);
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
+
+
+    public void save() {
+        String file_path = "sequences/" + String.valueOf(this.sequence_seed) + ".txt";
+        File file = new File(file_path);
+
+        if (file.exists()) return;
+
+        try {
+            file.createNewFile();
+            FileWriter myWriter = new FileWriter(file);
+            myWriter.write(this.toString());
+            myWriter.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public String toString() {
+
+        String sequence_seed    = String.valueOf(this.sequence_seed);
+        String regex_complexity = String.valueOf(this.regex_complexity);
+        String sequence_length  = String.valueOf(this.sequence_length);
+        String request_variance = String.valueOf(this.request_variance);
+        //String sequence         = String.join("\n", this.sequence);
+
+        return  sequence_seed       + "\n" +
+                regex_complexity    + "\n" +
+                sequence_length     + "\n" +
+                request_variance    + "\n" /*+
+                sequence*/;
+    }
+
+
+    /**
+     * @param file_path : the path to the dbdata.txt file
+     * @return a sequence of request
+     */
+    public String[] generateSequence(String file_path) {
+
+        String[] sequence = new String[this.sequence_length];
+        String[] unique_request = new String[this.request_variance];
+
+        String[] file = loadFile(file_path);
+        Random generator = new Random(this.sequence_seed);
+        for (int i = 0; i < this.request_variance; i++) {
+            long request_seed = generator.nextLong();
+            unique_request[i] = generateRequest(request_seed, file);
+        }
+
+        int[] random_indices_UR  = randomTable(this.sequence_seed, unique_request.length);
+        int[] random_indices_SEQ = randomTable(this.sequence_seed+1, sequence.length);
+
+        for (int i = 0; i < this.sequence_length; i++)
+            sequence[random_indices_SEQ[i]] = unique_request[random_indices_UR[(i % unique_request.length)]];
+
+        return sequence;
+    }
+
+
+    /**
+     * @param file_path : the path to the file to store in the table
+     * @return store each line of the file into a string
+     */
+    private static String[] loadFile(String file_path) {
+        try {
+            ArrayList<String> file_AL = new ArrayList<String>();
+
+            File file = new File(file_path);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null)
+                file_AL.add(line);
+            br.close();
+
+            String[] file_table = new String[file_AL.size()];
+            return file_AL.toArray(file_table);
+        } catch (IOException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+
+    /**
+     * @param seed : a seed to generate the same request
+     * @param file : the dbdata.txt file store in table where each line is a string
+     * @return a request <type>;<regex>
+     */
+    public String generateRequest(long seed, String[] file) {
+
+        String type;
+        String regex = "";
+        Random generator = new Random(seed);
+
+        String line = file[generator.nextInt(file.length)];
+        type = line.split("@@@")[0];
+
+        String[] sentence = line.split("@@@")[1].split(" ");
+        int r = generator.nextInt(sentence.length-this.regex_complexity+1);
+        for (int i = 0; i < this.regex_complexity; i++) regex +=  sentence[r+i];
+
+        return type + ";" + regex;
+    }
+
+
+    /**
+     * @param seed : a seed to generate the same table
+     * @param length : the length of the table
+     * @return a table where the indices are randomized
+     */
+    private static int[] randomTable(long seed, int length) {
+
+        Random generator = new Random(seed);
+        int[] random_table = new int[length];
+        int[] table_elem = new int[length];
+
+        for (int i = 0; i < length; i++) table_elem[i] = i;
+
+        for (int i = 0; i < length; i++) {
+            boolean inTable = true;
+            int r = 0;
+            while (inTable) {
+                r = generator.nextInt(length);
+                if (table_elem[r] != -1) inTable = false;
+            }
+            random_table[i] = table_elem[r];
+            table_elem[r] = -1;
+        }
+
+        return random_table;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return (obj instanceof Sequence) && ( this.toString().equals(obj.toString()) );
+    }
+
+}
