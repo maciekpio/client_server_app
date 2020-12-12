@@ -32,7 +32,8 @@ public class Sequence {
                 BufferedReader br = new BufferedReader(new FileReader(file));
 
                 this.sequence_seed = sequence_seed;
-                this.regex_complexity = Integer.parseInt(br.readLine());
+                br.readLine();
+                this.regex_complexity = Integer.valueOf(br.readLine());
                 this.sequence_length = Integer.parseInt(br.readLine());
                 this.request_variance = Integer.parseInt(br.readLine());
 
@@ -73,13 +74,13 @@ public class Sequence {
         String regex_complexity = String.valueOf(this.regex_complexity);
         String sequence_length  = String.valueOf(this.sequence_length);
         String request_variance = String.valueOf(this.request_variance);
-        //String sequence         = String.join("\n", this.sequence);
+        String sequence         = String.join("\n", this.sequence);
 
         return  sequence_seed       + "\n" +
                 regex_complexity    + "\n" +
                 sequence_length     + "\n" +
-                request_variance    + "\n" /*+
-                sequence*/;
+                request_variance    + "\n" +
+                sequence;
     }
 
 
