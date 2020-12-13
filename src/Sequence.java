@@ -6,14 +6,16 @@ public class Sequence {
 
     private String[] sequence;
     private long sequence_seed;     //a seed to generate the same sequence
-    private int regex_complexity;   //the number of word in the regex, 0 < regex_complexity
+    private int regex_complexity;   //the number of character in the regex, 0 < regex_complexity
+    private int type_complexity;    //the number of type number in the request, 0 < type_complexity <= 5
     private int sequence_length;    //the number of request in the sequence
     private int request_variance;   //the the number of different request in the sequence, if request_variance == sequence_length all the request are different
 
-    public Sequence(long sequence_seed, int regex_complexity, int sequence_length, int request_variance, String file_path) {
+    public Sequence(long sequence_seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String file_path) {
 
         this.sequence_seed = sequence_seed;
         this.regex_complexity = regex_complexity;
+        this.type_complexity = type_complexity;
         this.sequence_length = sequence_length;
         this.request_variance = request_variance;
 
@@ -34,6 +36,7 @@ public class Sequence {
                 this.sequence_seed = sequence_seed;
                 br.readLine();
                 this.regex_complexity = Integer.valueOf(br.readLine());
+                this.type_complexity = Integer.valueOf(br.readLine());
                 this.sequence_length = Integer.parseInt(br.readLine());
                 this.request_variance = Integer.parseInt(br.readLine());
 
@@ -72,12 +75,14 @@ public class Sequence {
 
         String sequence_seed    = String.valueOf(this.sequence_seed);
         String regex_complexity = String.valueOf(this.regex_complexity);
+        String type_complexity = String.valueOf(this.type_complexity);
         String sequence_length  = String.valueOf(this.sequence_length);
         String request_variance = String.valueOf(this.request_variance);
         String sequence         = String.join("\n", this.sequence);
 
         return  sequence_seed       + "\n" +
                 regex_complexity    + "\n" +
+                type_complexity     + "\n" +
                 sequence_length     + "\n" +
                 request_variance    + "\n" +
                 sequence;
@@ -142,15 +147,34 @@ public class Sequence {
     public String generateRequest(long seed, String[] file) {
 
         String type;
-        String regex = "";
+        String regex;
         Random generator = new Random(seed);
 
-        String line = file[generator.nextInt(file.length)];
-        type = line.split("@@@")[0];
+        //find a line with a sentence long enough
+        String line = "";
+        boolean validLine = false;
+        while (!validLine) {
+            line = file[generator.nextInt(file.length)];
+            if (line.split("@@@")[1].length() >= this.regex_complexity) validLine = true;
+        }
 
-        String[] sentence = line.split("@@@")[1].split(" ");
-        int r = generator.nextInt(sentence.length-this.regex_complexity+1);
-        for (int i = 0; i < this.regex_complexity; i++) regex +=  sentence[r+i];
+        //generate a list of type
+        int[] type_table = new int[this.type_complexity];
+        int type_line = Integer.parseInt(line.split("@@@")[0]);
+        type = line.split("@@@")[0];
+        int[] random_table = randomTable(seed, 5);
+        for (int i = 1, j = 0; i < this.type_complexity; i++, j++) {
+            if (random_table[j] != type_line) type += "," + String.valueOf(random_table[j]);
+            else {
+                j++;
+                type += "," + String.valueOf(random_table[j]);
+            }
+        }
+
+        //generate a regex
+        String sentence = line.split("@@@")[1];
+        int r = generator.nextInt(sentence.length()-this.regex_complexity+1);
+        regex =  sentence.substring(r, r+this.regex_complexity);
 
         return type + ";" + regex;
     }
