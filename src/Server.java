@@ -31,13 +31,19 @@ public class Server {
         return map;
     }
 
+
+    /**
+     * args[0] : port number
+     * args[1] : path to dbdata.txt file
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
             System.err.println("Usage: java KnockKnockServer <port number>");
             System.exit(1);
         }
 
-        Map<Integer, List<String>> map = getIdMap("C:\\SINF2MS\\LINGI2241\\Project\\client_server_app\\dbdata.txt");
+        Map<Integer, List<String>> map = getIdMap(args[1]);
 
         //test du map
 
