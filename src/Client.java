@@ -30,14 +30,16 @@ public class Client {
                         new InputStreamReader(socket.getInputStream()));
         ){
             BufferedReader stdIn;
-            if (args[2].equals("-a"))
+            //to modify
+            /*if (args[2].equals("-a"))
                 stdIn = feedBuffer(new Random().nextLong(),
                                     30,
                                     1,
                                     10,
                                     5,
                                     args[3]);
-            else stdIn = new BufferedReader(new InputStreamReader(System.in));
+            else */
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
 
             String fromServer;
             String fromUser;
