@@ -38,12 +38,12 @@ public class Server {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.err.println("Usage: java KnockKnockServer <port number>");
             System.exit(1);
         }
 
-        Map<Integer, List<String>> map = getIdMap(args[1]);
+        Map<Integer, List<String>> map = getIdMap("C:\\SINF2MS\\LINGI2241\\Project\\client_server_app\\src\\dbdata.txt");//args[1]);
 
         //test du map
 
