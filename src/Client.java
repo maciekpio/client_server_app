@@ -1,6 +1,10 @@
 import java.net.*;
 import java.io.*;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class Client {
@@ -13,13 +17,14 @@ public class Client {
      * args[3] : the path to the dbdata.txt file
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         if (args.length != 2) {
             System.err.println(
                     "Usage: java EchoClient <host name> <port number>");
             System.exit(1);
         }
 
+        ExecutorService executor = Executors.newFixedThreadPool(2);
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
 
@@ -41,19 +46,20 @@ public class Client {
             else */
             stdIn = new BufferedReader(new InputStreamReader(System.in));
 
-            String fromServer;
             String fromUser;
             while(true) {
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
-                    System.out.println("Client: " + fromUser);
-                    out.println(fromUser);
+                    String finalFromUser = fromUser;
+                    executor.submit(()-> {
+                        try {
+                            working(finalFromUser,out,in);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
-                System.out.println("Server: ");
-                while (!(fromServer = in.readLine()).equals("")) {
-                    System.out.print(fromServer + "\r\n");
-                }
-                fromUser=null;
+
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -65,7 +71,14 @@ public class Client {
         }
     }
 
-
+    public static void working(String fromUser,PrintWriter out,BufferedReader in) throws IOException {
+        out.println(fromUser);
+        String fromServer;
+        while (!(fromServer = in.readLine()).equals("")) {
+            System.out.print(fromServer + "\r\n");
+        }
+        fromUser=null;
+    }
     private static BufferedReader feedBuffer(long seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String file_path) {
         try {
             Sequence seq1 = new Sequence(seed, regex_complexity, type_complexity, sequence_length, request_variance, file_path);
