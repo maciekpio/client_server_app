@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class MultiServerThread extends Thread {
     private Socket socket = null;
@@ -22,11 +24,28 @@ public class MultiServerThread extends Thread {
                         new InputStreamReader(
                                 socket.getInputStream()));
         ) {
-            String inputLine, outputLine;
+            String inputLine;
             Protocol p = new Protocol();
             while ((inputLine = in.readLine()) != null) {
-                outputLine = p.processInput(inputLine,MultiServer.map);
-                out.println(outputLine);
+                String finalInputLine = inputLine;
+                (new Thread(){
+                    @Override
+                    public void run() {
+                        String outputLine;
+                        if(finalInputLine.matches("(.*);(.*)")) {
+                            try {
+                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.map))).get();
+                                out.println(outputLine);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            out.println("mauvais format");
+                        }
+                    }
+                }).start();
             }
             socket.close();
         } catch (IOException e) {

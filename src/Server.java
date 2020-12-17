@@ -43,8 +43,8 @@ public class Server {
         }
 
         //for Maciek
-        //Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
-        Map<Integer, List<String>> map = getIdMap(args[1]);
+        Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
+        //Map<Integer, List<String>> map = getIdMap(args[1]);
         int portNumber = Integer.parseInt(args[0]);
 
         try (
