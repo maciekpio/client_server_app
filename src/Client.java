@@ -17,17 +17,17 @@ public class Client {
      * args[3] : the path to the dbdata.txt file
      * @throws IOException
      */
-<<<<<<< HEAD
     public static void main(String[] args) throws IOException {
 
         String hostName = "";
-        int portNumber;
+        int portNumber = -1;
         String dbfile = "";
         boolean test = false;
         int regex_complexity = 0;
         int type_complexity = 0;
         int sequence_length = -1;
         int request_variance = 0;
+        int nThreads = 1;
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-h" :
@@ -71,22 +71,22 @@ public class Client {
                     if (request_variance <= 0 || request_variance > sequence_length)
                         System.out.println("The request variance need to be an integer in [1;sequence length]");
                     break;
+                case "-nt" :
+                    i++;
+                    nThreads = Integer.parseInt(args[i]);
+                    break;
                 default :
                     System.out.println("incorrect input parameter");
             }
         }
-=======
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-        if (args.length != 2) {
+
+        if (portNumber == -1 || hostName.equals("")) {
             System.err.println(
-                    "Usage: java EchoClient <host name> <port number>");
+                    "you need to specify a valide port number and host name");
             System.exit(1);
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        String hostName = args[0];
-        int portNumber = Integer.parseInt(args[1]);
->>>>>>> 2f406f794c5e37b3928d072dff0364b5f8a7d4dd
+        ExecutorService executor = Executors.newFixedThreadPool(nThreads);
 
         try (
                 Socket socket = new Socket(hostName, portNumber);
@@ -94,8 +94,8 @@ public class Client {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
         ){
+
             BufferedReader stdIn;
-<<<<<<< HEAD
             if (test)
                 stdIn = feedBuffer(new Random().nextLong(),
                                     regex_complexity,
@@ -104,19 +104,6 @@ public class Client {
                                     request_variance,
                                     dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
-=======
-            //to modify
-            /*if (args[2].equals("-a"))
-                stdIn = feedBuffer(new Random().nextLong(),
-                                    30,
-                                    1,
-                                    10,
-                                    5,
-                                    args[3]);
-            else */
-            stdIn = new BufferedReader(new InputStreamReader(System.in));
->>>>>>> 2f406f794c5e37b3928d072dff0364b5f8a7d4dd
-
             String fromUser;
             while(true) {
                 fromUser = stdIn.readLine();
