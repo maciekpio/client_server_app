@@ -14,14 +14,62 @@ public class Client {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        if (args.length != 2) {
-            System.err.println(
-                    "Usage: java EchoClient <host name> <port number>");
-            System.exit(1);
-        }
 
-        String hostName = args[0];
-        int portNumber = Integer.parseInt(args[1]);
+        String hostName = "";
+        int portNumber;
+        String dbfile = "";
+        boolean test = false;
+        int regex_complexity = 0;
+        int type_complexity = 0;
+        int sequence_length = -1;
+        int request_variance = 0;
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "-h" :
+                    i++;
+                    hostName = args[i];
+                    break;
+                case "-p" :
+                    i++;
+                    portNumber = Integer.parseInt(args[i]);
+                    break;
+                case "-f" :
+                    i++;
+                    dbfile = args[i];
+                    break;
+                case "-t" :
+                    test = true;
+                    break;
+                case "-rc" :
+                    i++;
+                    regex_complexity = Integer.parseInt(args[i]);
+                    if (regex_complexity <= 0)
+                        System.out.println("The regex complexity need to be strictly positive");
+                    break;
+                case "-tc" :
+                    i++;
+                    type_complexity = Integer.parseInt(args[i]);
+                    if (type_complexity < 0 || type_complexity > 6)
+                        System.out.println("The type complexity need to be an integer in [0;5]");
+                    break;
+                case "-l" :
+                    i++;
+                    sequence_length = Integer.parseInt(args[i]);
+                    if (sequence_length <= 0)
+                        System.out.println("The sequence length need to be strictly positive");
+                    break;
+                case "-rv" :
+                    i++;
+                    request_variance = Integer.parseInt(args[i]);
+                    if (sequence_length == -1)
+                        System.out.println("-l need to be put before -rv");
+                    if (request_variance <= 0 || request_variance > sequence_length)
+                        System.out.println("The request variance need to be an integer in [1;sequence length]");
+                    break;
+                default :
+                    System.out.println("incorrect input parameter");
+            }
+        }
 
         try (
                 Socket socket = new Socket(hostName, portNumber);
@@ -30,13 +78,13 @@ public class Client {
                         new InputStreamReader(socket.getInputStream()));
         ){
             BufferedReader stdIn;
-            if (args[2].equals("-a"))
+            if (test)
                 stdIn = feedBuffer(new Random().nextLong(),
-                                    30,
-                                    1,
-                                    10,
-                                    5,
-                                    args[3]);
+                                    regex_complexity,
+                                    type_complexity,
+                                    sequence_length,
+                                    request_variance,
+                                    dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
 
             String fromServer;
