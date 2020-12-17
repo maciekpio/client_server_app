@@ -4,3 +4,4 @@ dbdata.txt
 .idea/misc.xml
 *.xml
 *.xml
+src/*.class

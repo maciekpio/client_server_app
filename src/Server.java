@@ -37,14 +37,13 @@ public class Server {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.err.println("Usage: java KnockKnockServer <port number>");
             System.exit(1);
         }
+        //Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
+        Map<Integer, List<String>> map = getIdMap(args[1]);
 
-        //for Maciek
-        Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
-        //Map<Integer, List<String>> map = getIdMap(args[1]);
         int portNumber = Integer.parseInt(args[0]);
 
         try (

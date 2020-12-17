@@ -7,7 +7,7 @@ public class Sequence {
     private String[] sequence;
     private long sequence_seed;     //a seed to generate the same sequence
     private int regex_complexity;   //the number of character in the regex, 0 < regex_complexity
-    private int type_complexity;    //the number of type number in the request, 0 < type_complexity <= 5
+    private int type_complexity;    //the number of type number in the request, 0 <= type_complexity <= 5
     private int sequence_length;    //the number of request in the sequence
     private int request_variance;   //the the number of different request in the sequence, if request_variance == sequence_length all the request are different
 
@@ -159,17 +159,19 @@ public class Sequence {
         }
 
         //generate a list of type
-        int[] type_table = new int[this.type_complexity];
-        int type_line = Integer.parseInt(line.split("@@@")[0]);
-        type = line.split("@@@")[0];
-        int[] random_table = randomTable(seed, 5);
-        for (int i = 1, j = 0; i < this.type_complexity; i++, j++) {
-            if (random_table[j] != type_line) type += "," + String.valueOf(random_table[j]);
-            else {
-                j++;
-                type += "," + String.valueOf(random_table[j]);
+        if (this.type_complexity > 0) {
+            int[] type_table = new int[this.type_complexity];
+            int type_line = Integer.parseInt(line.split("@@@")[0]);
+            type = line.split("@@@")[0];
+            int[] random_table = randomTable(seed, 5);
+            for (int i = 1, j = 0; i < this.type_complexity; i++, j++) {
+                if (random_table[j] != type_line) type += "," + String.valueOf(random_table[j]);
+                else {
+                    j++;
+                    type += "," + String.valueOf(random_table[j]);
+                }
             }
-        }
+        } else type = "";
 
         //generate a regex
         String sentence = line.split("@@@")[1];
