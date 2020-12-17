@@ -1,6 +1,10 @@
 import java.net.*;
 import java.io.*;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class Client {
@@ -13,6 +17,7 @@ public class Client {
      * args[3] : the path to the dbdata.txt file
      * @throws IOException
      */
+<<<<<<< HEAD
     public static void main(String[] args) throws IOException {
 
         String hostName = "";
@@ -70,6 +75,18 @@ public class Client {
                     System.out.println("incorrect input parameter");
             }
         }
+=======
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+        if (args.length != 2) {
+            System.err.println(
+                    "Usage: java EchoClient <host name> <port number>");
+            System.exit(1);
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        String hostName = args[0];
+        int portNumber = Integer.parseInt(args[1]);
+>>>>>>> 2f406f794c5e37b3928d072dff0364b5f8a7d4dd
 
         try (
                 Socket socket = new Socket(hostName, portNumber);
@@ -78,6 +95,7 @@ public class Client {
                         new InputStreamReader(socket.getInputStream()));
         ){
             BufferedReader stdIn;
+<<<<<<< HEAD
             if (test)
                 stdIn = feedBuffer(new Random().nextLong(),
                                     regex_complexity,
@@ -86,20 +104,33 @@ public class Client {
                                     request_variance,
                                     dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
+=======
+            //to modify
+            /*if (args[2].equals("-a"))
+                stdIn = feedBuffer(new Random().nextLong(),
+                                    30,
+                                    1,
+                                    10,
+                                    5,
+                                    args[3]);
+            else */
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+>>>>>>> 2f406f794c5e37b3928d072dff0364b5f8a7d4dd
 
-            String fromServer;
             String fromUser;
             while(true) {
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
-                    System.out.println("Client: " + fromUser);
-                    out.println(fromUser);
+                    String finalFromUser = fromUser;
+                    executor.submit(()-> {
+                        try {
+                            working(finalFromUser,out,in);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
-                System.out.println("Server: ");
-                while (!(fromServer = in.readLine()).equals("")) {
-                    System.out.print(fromServer + "\r\n");
-                }
-                fromUser=null;
+
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -111,7 +142,14 @@ public class Client {
         }
     }
 
-
+    public static void working(String fromUser,PrintWriter out,BufferedReader in) throws IOException {
+        out.println(fromUser);
+        String fromServer;
+        while (!(fromServer = in.readLine()).equals("")) {
+            System.out.print(fromServer + "\r\n");
+        }
+        fromUser=null;
+    }
     private static BufferedReader feedBuffer(long seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String file_path) {
         try {
             Sequence seq1 = new Sequence(seed, regex_complexity, type_complexity, sequence_length, request_variance, file_path);

@@ -31,7 +31,6 @@ public class Server {
         return map;
     }
 
-
     /**
      * args[0] : port number
      * args[1] : path to dbdata.txt file
@@ -43,6 +42,7 @@ public class Server {
             System.exit(1);
         }
 
+<<<<<<< HEAD
         Map<Integer, List<String>> map = getIdMap("C:\\SINF2MS\\LINGI2241\\Project\\client_server_app\\src\\dbdata.txt");//args[1]);
 
         //test du map
@@ -53,6 +53,11 @@ public class Server {
 
 
 
+=======
+        //for Maciek
+        //Map<Integer, List<String>> map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
+        Map<Integer, List<String>> map = getIdMap(args[1]);
+>>>>>>> 2f406f794c5e37b3928d072dff0364b5f8a7d4dd
         int portNumber = Integer.parseInt(args[0]);
 
         try (
