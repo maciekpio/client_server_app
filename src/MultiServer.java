@@ -40,7 +40,7 @@ public class MultiServer {
         }
 
         //for Maciek
-        map = getIdMap("C:\\Users\\katol\\Desktop\\LINGI2241-Architecture and performance of computer systems\\client_server_app\\dbdata.txt");
+        map = getIdMap("C:\\SINF2MS\\LINGI2241\\Project\\client_server_app\\src\\dbdata.txt");
         //map = getIdMap(args[1]);
 
         int portNumber = Integer.parseInt(args[0]);

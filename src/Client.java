@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -8,6 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class Client {
+
+
     /**
      * args[0] : hostname, device name
      * args[1] : port number
@@ -25,6 +28,7 @@ public class Client {
         int type_complexity = 0;
         int sequence_length = -1;
         int request_variance = 0;
+        int pause = 1000;
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-h" :
@@ -68,6 +72,10 @@ public class Client {
                     if (request_variance <= 0 || request_variance > sequence_length)
                         System.out.println("The request variance need to be an integer in [1;sequence length]");
                     break;
+                case "-pa" :
+                    i++;
+                    pause = Integer.parseInt(args[i]);
+                    break;
                 default :
                     System.out.println("incorrect input parameter");
             }
@@ -95,8 +103,14 @@ public class Client {
                                     request_variance,
                                     dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String fromUser;
+            final String[] fromUser = new String[1];
+            final String[] fromServer = new String[1];
+            final long[] startTime = new long[1];
+            final long[] endTime = new long[1];
+            Random generator = new Random();
             while(true) {
+                if (test)
+                    Thread.sleep((long)((generator.nextGaussian()*(pause/2))+pause));
                 Thread t = null;
                 try {
                     fromUser[0] = stdIn.readLine();
@@ -116,7 +130,8 @@ public class Client {
                                 }
                             }
                             endTime[0] = System.currentTimeMillis();
-                            System.out.println(endTime[0] - startTime[0]);
+                            long duration = endTime[0] - startTime[0];
+                            System.out.println(duration);
                         });
                         t.start();
                     }
@@ -131,6 +146,8 @@ public class Client {
             System.err.println("Couldn't get I/O for the connection to " +
                     hostName);
             System.exit(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
