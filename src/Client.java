@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 public class Client {
 
     /**
@@ -18,6 +20,7 @@ public class Client {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        //java Client -h LAPTOP-71465AB6 -p 4444 -f dbdata.txt -rc 10 -tc 1 -l 10 -rv 8 -pa 1000 -t
 
         String hostName = "";
         int portNumber = -1;
@@ -38,10 +41,6 @@ public class Client {
                 case "-p" :
                     i++;
                     portNumber = Integer.parseInt(args[i]);
-                    break;
-                case "-i" :
-                    i++;
-                    max_iteration = Integer.parseInt(args[i]);
                     break;
                 case "-f" :
                     i++;
@@ -82,6 +81,7 @@ public class Client {
                     pause = Integer.parseInt(args[i]);
                     break;
                 default :
+                    System.out.println("incorrect input parameter");
             }
         }
 
@@ -91,9 +91,8 @@ public class Client {
             System.exit(1);
         }
 
-        Object err = clientExecution(hostName,
+        ArrayList<Long> err = clientExecution(hostName,
                 portNumber,
-                max_iteration,
                 test,
                 regex_complexity,
                 type_complexity,
@@ -101,12 +100,12 @@ public class Client {
                 request_variance,
                 pause,
                 dbfile);
+        System.out.println(err.toString());
         if (err == null) System.exit(1);
     }
 
     public static ArrayList<Long> clientExecution(String hostName,
                                        int portNumber,
-                                       int max_iteration,
                                        boolean test,
                                        int regex_complexity,
                                        int type_complexity,
@@ -131,36 +130,48 @@ public class Client {
                         request_variance,
                         dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
+
+            System.out.println("Client ready !");
+
             final String[] fromUser = new String[1];
             final String[] fromServer = new String[1];
             final long[] startTime = new long[1];
             final long[] endTime = new long[1];
             Random generator = new Random();
-            for (int i = 0; (!test || (i<sequence_length)) && i < max_iteration; i++) {
-                if (test)
-                    Thread.sleep((long)((generator.nextGaussian()*(pause/2))+pause));
+            final long[] duration = new long[1];
+            Object syn = new Object();
+            final int[] flag = new int[1];
+            if (test)  flag[0] = sequence_length+1;
+            else flag[0] = 0;
+            for (int i = 0; condition(test, i, sequence_length); i++) {
+                if (test) {
+                    long pa = (long) ((generator.nextGaussian() * (pause / 2)) + pause);
+                    System.out.println(pa);
+                    sleep(pa);
+                }
                 Thread t = null;
                 try {
                     fromUser[0] = stdIn.readLine();
                     if (fromUser[0] != null) {
                         t = new Thread(() -> {
-                            startTime[0] = System.currentTimeMillis();
+
+                            startTime[0] = System.nanoTime();
                             out.println(fromUser[0]);
                             while (true) {
                                 try {
-                                    while (!(fromServer[0] = in.readLine()).equals("")) {
-                                        //System.out.print(fromServer[0] + "\r\n");
-                                    }
+                                    while (!(fromServer[0] = in.readLine()).equals(""))
+                                        System.out.print(fromServer[0] + "\r\n");
                                     fromServer[0] = null;
                                     break;
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }
-                            endTime[0] = System.currentTimeMillis();
-                            long duration = endTime[0] - startTime[0];
-                            request_durations.add(duration);
-                            System.out.println(duration);
+                            endTime[0] = System.nanoTime();
+                            duration[0] = endTime[0] - startTime[0];
+                            request_durations.add(duration[0]);
+                            System.out.println("duration : " + duration[0]);
+                            synchronized (syn) { flag[0]--; }
                         });
                         t.start();
                     }
@@ -169,6 +180,7 @@ public class Client {
                     return null;
                 }
             }
+            while(flag[0] <= 0);
             return request_durations;
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -180,6 +192,11 @@ public class Client {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static boolean condition(boolean test, int i, int sequence_lenght) {
+        if (test) return i<=sequence_lenght;
+        else return true;
     }
 
     private static BufferedReader feedBuffer(long seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String file_path) {

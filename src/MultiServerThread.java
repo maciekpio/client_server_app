@@ -34,7 +34,7 @@ public class MultiServerThread extends Thread {
                         String outputLine;
                         if(finalInputLine.matches("(.*);(.*)")) {
                             try {
-                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.map))).get();
+                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.file_in_table))).get();
                                 out.println(outputLine);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
@@ -42,7 +42,7 @@ public class MultiServerThread extends Thread {
                                 e.printStackTrace();
                             }
                         }else{
-                            out.println("mauvais format");
+                            out.println("wrong format");
                         }
                     }
                 }).start();
