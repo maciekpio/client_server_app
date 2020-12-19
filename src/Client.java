@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class Client {
 
-
     /**
      * args[0] : hostname, device name
      * args[1] : port number
@@ -22,6 +21,7 @@ public class Client {
 
         String hostName = "";
         int portNumber = -1;
+        int max_iteration = 1;
         String dbfile = "";
         boolean test = false;
         int regex_complexity = 0;
@@ -38,6 +38,10 @@ public class Client {
                 case "-p" :
                     i++;
                     portNumber = Integer.parseInt(args[i]);
+                    break;
+                case "-i" :
+                    i++;
+                    max_iteration = Integer.parseInt(args[i]);
                     break;
                 case "-f" :
                     i++;
@@ -61,6 +65,7 @@ public class Client {
                 case "-l" :
                     i++;
                     sequence_length = Integer.parseInt(args[i]);
+                    max_iteration = sequence_length;
                     if (sequence_length <= 0)
                         System.out.println("The sequence length need to be strictly positive");
                     break;
@@ -77,7 +82,6 @@ public class Client {
                     pause = Integer.parseInt(args[i]);
                     break;
                 default :
-                    System.out.println("incorrect input parameter");
             }
         }
 
@@ -87,6 +91,30 @@ public class Client {
             System.exit(1);
         }
 
+        Object err = clientExecution(hostName,
+                portNumber,
+                max_iteration,
+                test,
+                regex_complexity,
+                type_complexity,
+                sequence_length,
+                request_variance,
+                pause,
+                dbfile);
+        if (err == null) System.exit(1);
+    }
+
+    public static ArrayList<Long> clientExecution(String hostName,
+                                       int portNumber,
+                                       int max_iteration,
+                                       boolean test,
+                                       int regex_complexity,
+                                       int type_complexity,
+                                       int sequence_length,
+                                       int request_variance,
+                                       int pause,
+                                       String dbfile) {
+        ArrayList<Long> request_durations = new ArrayList<>();
         try (
                 Socket socket = new Socket(hostName, portNumber);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -97,18 +125,18 @@ public class Client {
             BufferedReader stdIn;
             if (test)
                 stdIn = feedBuffer(new Random().nextLong(),
-                                    regex_complexity,
-                                    type_complexity,
-                                    sequence_length,
-                                    request_variance,
-                                    dbfile);
+                        regex_complexity,
+                        type_complexity,
+                        sequence_length,
+                        request_variance,
+                        dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
             final String[] fromUser = new String[1];
             final String[] fromServer = new String[1];
             final long[] startTime = new long[1];
             final long[] endTime = new long[1];
             Random generator = new Random();
-            while(true) {
+            for (int i = 0; (!test || (i<sequence_length)) && i < max_iteration; i++) {
                 if (test)
                     Thread.sleep((long)((generator.nextGaussian()*(pause/2))+pause));
                 Thread t = null;
@@ -131,23 +159,26 @@ public class Client {
                             }
                             endTime[0] = System.currentTimeMillis();
                             long duration = endTime[0] - startTime[0];
+                            request_durations.add(duration);
                             System.out.println(duration);
                         });
                         t.start();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+                    return null;
                 }
             }
+            return request_durations;
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
-            System.exit(1);
+            return null;
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                    hostName);
-            System.exit(1);
+            System.err.println("Couldn't get I/O for the connection to " +hostName);
+            return null;
         } catch (InterruptedException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
