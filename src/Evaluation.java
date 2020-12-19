@@ -1,13 +1,18 @@
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+import java.text.*;
 
 import static java.lang.Thread.sleep;
 
 public class Evaluation {
 
-    public static ArrayList<ArrayList<Long>> clients_results = new ArrayList<>();
+    public static ArrayList<Object[]> data_to_plot = new ArrayList<>();
+    private static int experience = 0;
 
     public static void main(String[] args) {
-        //java Evaluation -h LAPTOP-71465AB6 -p 4444 -f dbdata_simple.txt -rc 10 -tc 1 -l 10 -rv 8 -pa 1000 -t -r 2 -nc 2
+        //java Evaluation -h LAPTOP-71465AB6 -p 4444 -f dbdata_simple.txt -rc 10 -tc 1 -l 2 -rv 2 -pa 1000 -r 2 -nc 2 -s 0 -e 5 -st 1 -v type_complexity
 
         String hostName = "";
         int portNumber = -1;
@@ -110,9 +115,9 @@ public class Evaluation {
 
         for (int i = start; i <= end; i += step) {
             System.out.println("I : " + i);
-
+            ArrayList<Object> repetions = new ArrayList<>();
             for (int j = 0; j < repetition; j++) {
-
+                ArrayList<Object> clients_results = new ArrayList<>();
                 final int[] flag = {nbr_client};
                 for (int k = 0; k < nbr_client; k++) {
                     String finalVariant = variant;
@@ -135,16 +140,17 @@ public class Evaluation {
                                                                           finalRequest_variance,
                                                                           finalPause,
                                                                           file);
-                        System.out.println(durations.toString());
+                        System.out.println(durations);
                         synchronized (syn1) { clients_results.add(durations); }
                         synchronized (syn2) { flag[0]--; }
                     }).start();
                 }
-                System.out.println("wait");
                 while(flag[0] > 0);
-                System.out.println("go");
+                repetions.add(clients_results);
             }
+            data_to_plot.add(new Object[]{i, repetions});
         }
+        save();
 
     }
 
@@ -211,6 +217,48 @@ public class Evaluation {
                                               file);
             default :
                 return null;
+        }
+    }
+
+    private static String toString2(){
+        String data_to_string = "";
+        for(Object[] repetitions : data_to_plot) {
+            String repetition_to_string = repetitions[0] + "|";
+            for (Object clients_results : (ArrayList<Object>)(repetitions[1])) {
+                String clients_results_to_string = "";
+                for (Object durations : (ArrayList<Object>)clients_results) {
+                    String durations_to_string = "";
+                    for (Long duration : (ArrayList<Long>)durations) {
+                        durations_to_string += duration.toString() + ',';
+                    }
+                    clients_results_to_string +=
+                            durations_to_string.substring(0, durations_to_string.length()-1) + ';';
+                }
+                repetition_to_string +=
+                        clients_results_to_string.substring(0,clients_results_to_string.length()-1) + '.';
+            }
+            data_to_string +=
+                    repetition_to_string.substring(0, repetition_to_string.length()-1) + '!';
+        }
+        return data_to_string.substring(0, data_to_string.length()-1);
+    }
+
+    private static void save() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String file_path = "experiences/" /*+ formatter.format(date)*/ +"_experience_" + experience + ".txt";
+        experience++;
+        File file = new File(file_path);
+
+        if (file.exists()) return;
+
+        try {
+            file.createNewFile();
+            FileWriter myWriter = new FileWriter(file);
+            myWriter.write(toString2());
+            myWriter.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
     }
 

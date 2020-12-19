@@ -153,12 +153,7 @@ public class Client {
                     fromUser[0] = stdIn.readLine();
                     if (fromUser[0] != null) {
                         t = new Thread(() -> {
-<<<<<<< HEAD
                             startTime[0] = System.nanoTime();
-=======
-
-                            startTime[0] = System.currentTimeMillis();
->>>>>>> 193c91e6e89d82d0247a6b7d73677859cb61ba5b
                             out.println(fromUser[0]);
                             while (true) {
                                 try {
@@ -170,7 +165,7 @@ public class Client {
                                     e.printStackTrace();
                                 }
                             }
-                            endTime[0] = System.currentTimeMillis();
+                            endTime[0] = System.nanoTime();
                             duration[0] = endTime[0] - startTime[0];
                             request_durations.add(duration[0]);
                             //System.out.println("duration : " + duration[0]);
