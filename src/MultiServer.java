@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class MultiServer {
     protected static Map<Integer, List<String>> map;
-    protected static ExecutorService executor= Executors.newFixedThreadPool(3);
+    protected static ExecutorService executor= Executors.newFixedThreadPool(5);
 
     public static Map<Integer, List<String>> getIdMap(final String pathToFile) throws IOException {
         final Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();

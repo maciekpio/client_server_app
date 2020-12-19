@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 public class Client {
     /**
      * args[0] : hostname, device name
@@ -95,15 +97,26 @@ public class Client {
                                     request_variance,
                                     dbfile);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String fromUser;
+            final String[] fromUser = new String[1];
+            final String[] fromServer = new String[1];
+            final long[] startTime = new long[1];
+            final long[] endTime = new long[1];
             while(true) {
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Thread t = null;
                 try {
                     fromUser[0] = stdIn.readLine();
                     if (fromUser[0] != null) {
                         t = new Thread(() -> {
+                            String th=fromUser[0];
+                            System.out.println(th+"\n");
+                            System.out.println("jai lance un thread");
                             startTime[0] = System.currentTimeMillis();
-                            out.println(fromUser[0]);
+                            out.println(th);
                             while (true) {
                                 try {
                                     while (!(fromServer[0] = in.readLine()).equals("")) {

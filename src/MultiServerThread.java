@@ -31,11 +31,13 @@ public class MultiServerThread extends Thread {
                 (new Thread(){
                     @Override
                     public void run() {
+                        System.out.println("le serveur a recu une request \n");
                         String outputLine;
                         if(finalInputLine.matches("(.*);(.*)")) {
                             try {
                                 outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.map))).get();
                                 out.println(outputLine);
+                                System.out.println("le serveur a renvoye une reponse \n");
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {
