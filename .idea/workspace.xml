@@ -2,16 +2,51 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c1402fc-30d0-439a-9a61-b6b7db83ae71" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiServerThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServerThread$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Protocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Protocol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-1423802364846979392.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-163851851930851774.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-2000450174468985918.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-2055102365101450205.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-2980873448956109514.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-3252582134143571681.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-3576751483982212189.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-3666987012731035047.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-3735854248683989248.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-4592202409272648418.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-5451331662181196453.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-5823521352450366588.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-5880189521603904465.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-5905653577869818141.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-6820546851393189295.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-6904770581879322337.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-6909206612256187745.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-7866626873322947147.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-850910141241831329.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-8883842259493314278.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/-991283507423411817.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/1065310411236236371.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/164493373080955314.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/1844586507048934551.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/1991899571248524812.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/2846079779432554114.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/2935854773996507440.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/3227026964483050555.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/3471436119729033922.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/3785632749511572989.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/4558792348144068628.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/4720963146879434471.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/4881223769390277947.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/5299879294446803539.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/6475492351887617901.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/7156329126197516405.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/7183750888451480797.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/7326771940763567095.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/753271370619397692.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/7803922565793434007.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sequences/9140533244077125917.txt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +61,8 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="126" column="41" lean-forward="true" selection-start-line="126" selection-start-column="41" selection-end-line="126" selection-end-column="41" />
+            <state relative-caret-position="469">
+              <caret line="158" column="37" lean-forward="true" selection-start-line="158" selection-start-column="37" selection-end-line="158" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -35,41 +70,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Evaluation.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Evaluation.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Evaluation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="48" column="13" lean-forward="true" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MultiServer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="42" column="60" lean-forward="true" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MultiServerThread.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MultiServerThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="37" column="56" selection-start-line="37" selection-start-column="56" selection-end-line="37" selection-end-column="56" />
+            <state relative-caret-position="520">
+              <caret line="155" column="77" lean-forward="true" selection-start-line="155" selection-start-column="77" selection-end-line="155" selection-end-column="77" />
               <folding>
-                <element signature="e#971#1803#0" expanded="true" />
-                <element signature="e#1802#1803#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,10 +85,31 @@
       <file leaf-file-name="Sequence.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Sequence.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="118" column="68" lean-forward="true" selection-start-line="118" selection-start-column="68" selection-end-line="118" selection-end-column="68" />
+            <state relative-caret-position="85">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MultiServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MultiServerThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MultiServerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="30" column="30" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="30" />
+              <folding>
+                <element signature="e#1802#1803#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -100,7 +128,16 @@
         <entry file="file://$PROJECT_DIR$/src/Protocol.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="748">
+              <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -137,12 +174,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Evaluation.java" />
         <option value="$PROJECT_DIR$/src/Server.java" />
         <option value="$PROJECT_DIR$/src/Protocol.java" />
         <option value="$PROJECT_DIR$/src/MultiServerThread.java" />
-        <option value="$PROJECT_DIR$/src/Client.java" />
         <option value="$PROJECT_DIR$/src/MultiServer.java" />
+        <option value="$PROJECT_DIR$/src/Evaluation.java" />
+        <option value="$PROJECT_DIR$/src/Sequence.java" />
+        <option value="$PROJECT_DIR$/src/Client.java" />
       </list>
     </option>
   </component>
@@ -398,7 +436,6 @@
         <state relative-caret-position="799">
           <caret line="47" column="25" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
           <folding>
-            <element signature="e#971#1803#0" expanded="true" />
             <element signature="e#1802#1803#0" expanded="true" />
           </folding>
         </state>
@@ -719,62 +756,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Sequence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="118" column="68" lean-forward="true" selection-start-line="118" selection-start-column="68" selection-end-line="118" selection-end-column="68" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Protocol.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="48" column="13" lean-forward="true" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Evaluation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MultiServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="37" column="56" selection-start-line="37" selection-start-column="56" selection-end-line="37" selection-end-column="56" />
-          <folding>
-            <element signature="e#971#1803#0" expanded="true" />
-            <element signature="e#1802#1803#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="126" column="41" lean-forward="true" selection-start-line="126" selection-start-column="41" selection-end-line="126" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="42" column="60" lean-forward="true" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+          <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MultiServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <element signature="e#1802#1803#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sequence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="158" column="37" lean-forward="true" selection-start-line="158" selection-start-column="37" selection-end-line="158" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Evaluation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="155" column="77" lean-forward="true" selection-start-line="155" selection-start-column="77" selection-end-line="155" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -4,14 +4,14 @@ import java.io.*;
 
 public class Sequence {
 
-    private String[] sequence;
+    public String[] sequence;
     private long sequence_seed;     //a seed to generate the same sequence
     private int regex_complexity;   //the number of character in the regex, 0 < regex_complexity
     private int type_complexity;    //the number of type number in the request, 0 <= type_complexity <= 5
     private int sequence_length;    //the number of request in the sequence
     private int request_variance;   //the the number of different request in the sequence, if request_variance == sequence_length all the request are different
 
-    public Sequence(long sequence_seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String file_path) {
+    public Sequence(long sequence_seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String[] file) {
 
         this.sequence_seed = sequence_seed;
         this.regex_complexity = regex_complexity;
@@ -19,7 +19,7 @@ public class Sequence {
         this.sequence_length = sequence_length;
         this.request_variance = request_variance;
 
-        this.sequence = generateSequence(file_path);
+        this.sequence = generateSequence(file);
     }
 
 
@@ -90,15 +90,14 @@ public class Sequence {
 
 
     /**
-     * @param file_path : the path to the dbdata.txt file
+     * @param file : the file dbdata.txt loaded in an array where each line are an entry
      * @return a sequence of request
      */
-    public String[] generateSequence(String file_path) {
+    public String[] generateSequence(String[] file) {
 
         String[] sequence = new String[this.sequence_length];
         String[] unique_request = new String[this.request_variance];
 
-        String[] file = loadFile(file_path);
         Random generator = new Random(this.sequence_seed);
         for (int i = 0; i < this.request_variance; i++) {
             long request_seed = generator.nextLong();
@@ -119,7 +118,7 @@ public class Sequence {
      * @param file_path : the path to the file to store in the table
      * @return store each line of the file into a string
      */
-    private static String[] loadFile(String file_path) {
+    public static String[] loadFile(String file_path) {
         try {
             ArrayList<String> file_AL = new ArrayList<String>();
 
