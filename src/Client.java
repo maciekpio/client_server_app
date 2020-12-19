@@ -24,7 +24,6 @@ public class Client {
 
         String hostName = "";
         int portNumber = -1;
-        int max_iteration = 1;
         String dbfile = "";
         boolean test = false;
         int regex_complexity = 0;
@@ -64,7 +63,6 @@ public class Client {
                 case "-l" :
                     i++;
                     sequence_length = Integer.parseInt(args[i]);
-                    max_iteration = sequence_length;
                     if (sequence_length <= 0)
                         System.out.println("The sequence length need to be strictly positive");
                     break;
@@ -91,7 +89,9 @@ public class Client {
             System.exit(1);
         }
 
-        ArrayList<Long> err = clientExecution(hostName,
+        String[] file = Sequence.loadFile(dbfile);
+
+        ArrayList<Long> result = clientExecution(hostName,
                 portNumber,
                 test,
                 regex_complexity,
@@ -99,9 +99,9 @@ public class Client {
                 sequence_length,
                 request_variance,
                 pause,
-                dbfile);
-        System.out.println(err.toString());
-        if (err == null) System.exit(1);
+                file);
+        System.out.println(result.toString());
+        if (result == null) System.exit(1);
     }
 
     public static ArrayList<Long> clientExecution(String hostName,
@@ -112,7 +112,7 @@ public class Client {
                                        int sequence_length,
                                        int request_variance,
                                        int pause,
-                                       String dbfile) {
+                                       String[] file) {
         ArrayList<Long> request_durations = new ArrayList<>();
         try (
                 Socket socket = new Socket(hostName, portNumber);
@@ -128,10 +128,10 @@ public class Client {
                         type_complexity,
                         sequence_length,
                         request_variance,
-                        dbfile);
+                        file);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
 
-            System.out.println("Client ready !");
+            //System.out.println("Client ready !");
 
             final String[] fromUser = new String[1];
             final String[] fromServer = new String[1];
@@ -141,12 +141,11 @@ public class Client {
             final long[] duration = new long[1];
             Object syn = new Object();
             final int[] flag = new int[1];
-            if (test)  flag[0] = sequence_length+1;
+            if (test)  flag[0] = sequence_length;
             else flag[0] = 0;
             for (int i = 0; condition(test, i, sequence_length); i++) {
                 if (test) {
-                    long pa = (long) ((generator.nextGaussian() * (pause / 2)) + pause);
-                    System.out.println(pa);
+                    long pa = (long) ((Math.abs(generator.nextGaussian()) * (pause / 2)) + pause);
                     sleep(pa);
                 }
                 Thread t = null;
@@ -154,13 +153,17 @@ public class Client {
                     fromUser[0] = stdIn.readLine();
                     if (fromUser[0] != null) {
                         t = new Thread(() -> {
+<<<<<<< HEAD
+                            startTime[0] = System.nanoTime();
+=======
 
                             startTime[0] = System.currentTimeMillis();
+>>>>>>> 193c91e6e89d82d0247a6b7d73677859cb61ba5b
                             out.println(fromUser[0]);
                             while (true) {
                                 try {
                                     while (!(fromServer[0] = in.readLine()).equals(""))
-                                        System.out.print(fromServer[0] + "\r\n");
+                                        //System.out.print(fromServer[0] + "\r\n");
                                     fromServer[0] = null;
                                     break;
                                 } catch (IOException e) {
@@ -170,7 +173,7 @@ public class Client {
                             endTime[0] = System.currentTimeMillis();
                             duration[0] = endTime[0] - startTime[0];
                             request_durations.add(duration[0]);
-                            System.out.println("duration : " + duration[0]);
+                            //System.out.println("duration : " + duration[0]);
                             synchronized (syn) { flag[0]--; }
                         });
                         t.start();
@@ -180,7 +183,7 @@ public class Client {
                     return null;
                 }
             }
-            while(flag[0] <= 0);
+            while(flag[0] > 0) sleep(1);
             return request_durations;
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -195,23 +198,22 @@ public class Client {
     }
 
     private static boolean condition(boolean test, int i, int sequence_lenght) {
-        if (test) return i<=sequence_lenght;
+        if (test) return i<sequence_lenght;
         else return true;
     }
 
-    private static BufferedReader feedBuffer(long seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String file_path) {
-        try {
-            Sequence seq1 = new Sequence(seed, regex_complexity, type_complexity, sequence_length, request_variance, file_path);
-            seq1.save();
-            String sequence_file_path =  "sequences/" + String.valueOf(seed) + ".txt";
-            File file = new File(sequence_file_path);
-            BufferedReader stdIn = new BufferedReader(new FileReader(file));
-            for (int i = 0; i < 5; i++) stdIn.readLine();
-            return stdIn;
-        } catch (IOException ex) {
-            System.out.println(ex);
-            return null;
-        }
+    private static BufferedReader feedBuffer(long seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String[] file) {
+        Sequence seq1 = new Sequence(seed, regex_complexity, type_complexity, sequence_length, request_variance, file);
+        /*seq1.save();
+        String sequence_file_path =  "sequences/" + String.valueOf(seed) + ".txt";
+        File file_sequence = new File(sequence_file_path);
+        BufferedReader stdIn = new BufferedReader(new FileReader(file_sequence));
+        for (int i = 0; i < 5; i++) stdIn.readLine();*/
+        String buffer_input = "";
+        for (int i = 0; i < seq1.sequence.length; i++) buffer_input += seq1.sequence[i] + "\n";
+        Reader inputString = new StringReader(buffer_input);
+        BufferedReader stdIn = new BufferedReader(inputString);
+        return stdIn;
     }
 
 }
