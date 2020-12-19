@@ -12,6 +12,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class MultiServer {
+/* MAP
+    protected static Map<Integer, List<String>> map;
+    protected static ExecutorService executor= Executors.newFixedThreadPool(5);
+    */
+
     protected static Object[][] file_in_table;
     protected static ExecutorService executor= Executors.newFixedThreadPool(3);
 

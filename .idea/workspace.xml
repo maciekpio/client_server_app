@@ -48,8 +48,6 @@
       <change beforePath="$PROJECT_DIR$/src/sequences/7803922565793434007.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sequences/9140533244077125917.txt" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +59,8 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="158" column="37" lean-forward="true" selection-start-line="158" selection-start-column="37" selection-end-line="158" selection-end-column="37" />
+            <state relative-caret-position="554">
+              <caret line="163" column="37" lean-forward="true" selection-start-line="163" selection-start-column="37" selection-end-line="163" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -70,7 +68,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Evaluation.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Evaluation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Evaluation.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="520">
@@ -78,6 +76,15 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2013">
+              <caret line="180" column="14" selection-start-line="180" selection-start-column="14" selection-end-line="180" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -98,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
-              <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+              <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -160,14 +167,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>inco</find>
-      <find>map</find>
-      <find>println</find>
-      <find>in</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -184,7 +183,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="147" />
     <option name="y" value="-1093" />
     <option name="width" value="1934" />
@@ -396,6 +395,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/0.-1080.1920.1040@0.0.1280.680" timestamp="1607005763707" />
+    <state x="811" y="-667" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1608219026515">
+      <screen x="0" y="-1080" width="1920" height="1040" />
+    </state>
+    <state x="811" y="-667" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1280.680/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1608219026515" />
     <state x="690" y="-809" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1608140775537">
       <screen x="0" y="-1080" width="1920" height="1040" />
     </state>
@@ -766,7 +769,7 @@
     <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+          <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -799,8 +802,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="158" column="37" lean-forward="true" selection-start-line="158" selection-start-column="37" selection-end-line="158" selection-end-column="37" />
+        <state relative-caret-position="554">
+          <caret line="163" column="37" lean-forward="true" selection-start-line="163" selection-start-column="37" selection-end-line="163" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
