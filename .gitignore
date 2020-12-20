@@ -5,3 +5,5 @@ dbdata.txt
 *.xml
 *.xml
 src/*.class
+src/sequences/*
+src/experiences/*

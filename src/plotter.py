@@ -1,5 +1,8 @@
 
-def build_lexicon(file_name):
+import matplotlib.pyplot as plt
+
+
+def load_data(file_name):
 	file = open(file_name)
 	data_to_plot = []
 	text = file.readlines()
@@ -20,4 +23,21 @@ def build_lexicon(file_name):
 	file.close()
 	return data_to_plot
 
-print(build_lexicon("experiences/_experience_0.txt"))
+
+def plot(input):
+	data_to_plot = []
+	for data_input1 in input:
+		data = []
+		for data_input2 in data_input1[1]:
+			for data_input3 in data_input2:
+				for data_input4 in data_input3:
+					data.append(data_input4)
+		data_to_plot.append(data)
+	fig1, ax1 = plt.subplots()
+	ax1.set_title('Basic Plot')
+	ax1.boxplot(data_to_plot)
+	fig1.savefig("plot.png",bbox_inches='tight')
+	plt.show()
+
+
+plot(load_data("experiences/_experience_0.txt"))
