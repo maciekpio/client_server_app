@@ -99,8 +99,9 @@ public class Evaluation {
                         !args[i].equals("type_complexity") &&
                         !args[i].equals("sequence_length") &&
                         !args[i].equals("request_variance") &&
-                        !args[i].equals("pause"))
-                        System.out.println("the variant is suppose to be 'regex_complexity', 'type_complexity', 'sequence_length', 'request_variance' or 'pause'.");
+                        !args[i].equals("pause")&&
+                         !args[i].equals("nbr_client"))
+                        System.out.println("the variant is suppose to be 'regex_complexity', 'type_complexity', 'sequence_length', 'request_variance', 'pause' or 'nbr_client'.");
                     variant = args[i];
                     break;
                 default :
@@ -116,6 +117,7 @@ public class Evaluation {
         for (int i = start; i <= end; i += step) {
             System.out.println("I : " + i);
             ArrayList<Object> repetions = new ArrayList<>();
+            if (variant.equals("nbr_client")) nbr_client = i;
             for (int j = 0; j < repetition; j++) {
                 ArrayList<Object> clients_results = new ArrayList<>();
                 final int[] flag = {nbr_client};
@@ -215,6 +217,16 @@ public class Evaluation {
                                               request_variance,
                                               i,
                                               file);
+            case "nbr_client" :
+                return Client.clientExecution(hostName,
+                        portNumber,
+                        true,
+                        regex_complexity,
+                        type_complexity,
+                        sequence_length,
+                        request_variance,
+                        pause,
+                        file);
             default :
                 return null;
         }
