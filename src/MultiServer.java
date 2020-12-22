@@ -6,9 +6,12 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.Thread.sleep;
+
 public class MultiServer {
     //Server's response times
-    static ArrayList<Long> ServerTime=new ArrayList<>();
+    static ArrayList<Long> server_time = new ArrayList<>();
+    static Object syn_server_time = new Object();
     //The map containing the dbdata.txt file in memory
     static Map<Integer, HashSet<String>> map;
     //Server's thread pool
@@ -51,6 +54,19 @@ public class MultiServer {
 
         map = getIdMap(args[1]);
 
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+        new Thread(() -> {
+            while(true) {
+                String fromUser = null;
+                try {
+                    fromUser = stdIn.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (fromUser != null && fromUser.equals("save") && server_time.size() > 0) save();
+            }
+        }).start();
+
         System.out.println("Server ready !");
 
         int portNumber = Integer.parseInt(args[0]);
@@ -66,5 +82,30 @@ public class MultiServer {
             System.exit(-1);
         }
         executor.shutdown();
+        save();
+    }
+
+    private static void save() {
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        String file_path = "experiences/Server_experience_" + hour + "h" + minutes + ".txt";
+        File file = new File(file_path);
+        Long mean = new Long(0);
+        for(Long time : server_time) mean += time;
+        mean /= server_time.size();
+
+        synchronized (syn_server_time) {server_time = new ArrayList<>();}
+
+        if (file.exists()) return;
+
+        try {
+            file.createNewFile();
+            FileWriter myWriter = new FileWriter(file);
+            myWriter.write(mean.toString());
+            myWriter.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
 }

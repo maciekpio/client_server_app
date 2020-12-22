@@ -263,9 +263,7 @@ public class Evaluation {
     }
 
     private static void save(String variant, int start, int end, int step, int regex_complexity, int type_complexity, int sequence_length, int request_variance, int pause) {
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String file_path = "experiences/_experience_" +
+        String file_path = "experiences/Client_experience_" +
                             variant + "_" +
                             start + "_" +
                             end + "_" +

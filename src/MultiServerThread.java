@@ -40,7 +40,7 @@ public class MultiServerThread extends Thread {
                                 //Sending the response to the client
                                 out.println(outputLine);
 
-                                MultiServer.ServerTime.add(serverEnd-serverStart);
+                                synchronized (MultiServer.syn_server_time) {MultiServer.server_time.add(serverEnd-serverStart);}
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {
