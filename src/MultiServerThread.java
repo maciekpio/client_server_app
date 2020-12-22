@@ -40,7 +40,7 @@ public class MultiServerThread extends Thread {
                         String outputLine;
                         if(finalInputLine.contains(";")) {
                             try {
-                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.file_in_table))).get();
+                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.map))).get();
                                 out.println(outputLine);
                                 System.out.println("reponse envoye");
                             } catch (InterruptedException e) {

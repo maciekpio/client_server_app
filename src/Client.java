@@ -159,7 +159,7 @@ public class Client {
                             while (true) {
                                 try {
                                     while (!(fromServer[0] = in.readLine()).equals(""))
-                                        //System.out.print(fromServer[0] + "\r\n");
+                                        System.out.print(fromServer[0] + "\r\n");
                                     fromServer[0] = null;
                                     break;
                                 } catch (IOException e) {
