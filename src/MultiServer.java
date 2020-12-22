@@ -3,23 +3,20 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class MultiServer {
-/* MAP
-    protected static Map<Integer, List<String>> map;
-    protected static ExecutorService executor= Executors.newFixedThreadPool(5);
-    */
-
+    //Server's response times
+    static ArrayList<Long> ServerTime=new ArrayList<>();
+    //The map containing the dbdata.txt file in memory
     static Map<Integer, HashSet<String>> map;
-    protected static ExecutorService executor= Executors.newFixedThreadPool(1);
+    //Server's thread pool
+    protected static ExecutorService executor= Executors.newFixedThreadPool(4);
 
+    //Saving the dbdata.txt in main memory
     public static Map<Integer, HashSet<String>> getIdMap(final String pathToFile) throws IOException {
-        boolean flag=false;
-        final Map<Integer, HashSet<String>> map = new HashMap<Integer, HashSet<String>>();
+        final Map<Integer, HashSet<String>> map = new HashMap<>();
         final String rawFileContents = new String(Files.readAllBytes(Paths.get(pathToFile)));
         final String[] fileLines = rawFileContents.split("\\r?\\n");
         for(int z=0;z<6;z++){
@@ -31,7 +28,7 @@ public class MultiServer {
         for (final String line : fileLines) {
             a++;
             if (a * 100 / file_length > percent) {
-                System.out.println(a * 100 / file_length + "%");
+                if(percent%10==0) System.out.println(a * 100 / file_length + "%");
                 percent++;
             }
             Integer id = Integer.parseInt(line.split("@@@")[0]);
@@ -40,6 +37,12 @@ public class MultiServer {
         }
         return map;
     }
+
+    /**
+     * args[0] : port number
+     * args[1] : the path to the dbdata.txt file
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             System.err.println("Usage: java MultiServer <port number>");
@@ -53,7 +56,8 @@ public class MultiServer {
         int portNumber = Integer.parseInt(args[0]);
         boolean listening = true;
 
-        try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+        //Launching a new MultiServerThread each time a client connect
+        try (ServerSocket serverSocket = new ServerSocket(portNumber,100)) {
             while (listening) {
                 new MultiServerThread(serverSocket.accept()).start();
             }

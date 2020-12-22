@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.*;
 import java.text.*;
 
-import static java.lang.Thread.sleep;
-
 public class Evaluation {
 
     public static ArrayList<Object[]> data_to_plot = new ArrayList<>();
@@ -116,14 +114,12 @@ public class Evaluation {
         Object syn2 = new Object();
 
         for (int i = start; i <= end; i += step) {
-            System.out.println("I : " + i);
             ArrayList<Object> repetions = new ArrayList<>();
             if (variant.equals("nbr_client")) nbr_client = i;
             for (int j = 0; j < repetition; j++) {
                 ArrayList<Object> clients_results = new ArrayList<>();
                 final int[] flag = {nbr_client};
                 for (int k = 0; k < nbr_client; k++) {
-                    //System.out.println(k);
                     String finalVariant = variant;
                     int finalI = i;
                     String finalHostName = hostName;

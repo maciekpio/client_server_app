@@ -3,6 +3,8 @@ import java.util.*;
 public class ProtocolBeta {
     public String processInput(String theInput, Object[][] file_in_table) {
         String theOutput = null;
+
+        //Retrieve the <types> and <regex> part of the request
         String string1 = theInput.split(";")[0];
         Integer[] intlist;
         final Integer[] allTypes = {0,1,2,3,4,5};
@@ -16,12 +18,17 @@ public class ProtocolBeta {
         String request = theInput.split(";")[1];
         String result = "";
         ArrayList<String> result_list = new ArrayList<>();
+
+        //Iterate over the 2D array to find all the matching sentences
         for(int i=0; i < file_in_table.length; i++){
             if(list.contains(file_in_table[i][0]) && file_in_table[i][1].toString().contains(request)) {
+                //check if the founded sentence didn't occur yet
                 if (!result_list.contains(file_in_table[i][1].toString()))
                     result_list.add(file_in_table[i][1].toString());
             }
         }
+
+        //Return the response
         theOutput = result;
         return theOutput;
     }

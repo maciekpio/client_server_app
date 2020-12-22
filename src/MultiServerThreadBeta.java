@@ -3,12 +3,12 @@ import java.io.*;
 import java.util.concurrent.ExecutionException;
 
 
-public class MultiServerThread extends Thread {
+public class MultiServerThreadBeta extends Thread {
     private Socket socket = null;
 
     //Constructor
-    public MultiServerThread(Socket socket) {
-        super("MultiServerThread");
+    public MultiServerThreadBeta(Socket socket) {
+        super("MultiServerThreadBeta");
         this.socket = socket;
     }
 
@@ -20,7 +20,7 @@ public class MultiServerThread extends Thread {
                                 socket.getInputStream()));
         ) {
             String inputLine;
-            Protocol p = new Protocol();
+            ProtocolBeta p = new ProtocolBeta();
             while ((inputLine = in.readLine()) != null) {
                 String finalInputLine = inputLine;
                 //Launching a thread when the server receive a request
@@ -33,14 +33,14 @@ public class MultiServerThread extends Thread {
                                 long serverStart=System.currentTimeMillis();
 
                                 //Launching a thread from the server's thread pool to process the request
-                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.map))).get();
+                                outputLine=(MultiServerBeta.executor.submit(()->p.processInput(finalInputLine, MultiServerBeta.file_in_table))).get();
 
                                 long serverEnd=System.currentTimeMillis();
 
                                 //Sending the response to the client
                                 out.println(outputLine);
 
-                                MultiServer.ServerTime.add(serverEnd-serverStart);
+                                MultiServerBeta.ServerTime.add(serverEnd-serverStart);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {
