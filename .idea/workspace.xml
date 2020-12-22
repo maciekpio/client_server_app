@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c1402fc-30d0-439a-9a61-b6b7db83ae71" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MultiServerThreadBeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/projet/au cas ou.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/projet/dbdata_simple.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resultat.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MultiServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MultiServerBeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServerBeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MultiServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MultiServerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Protocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Protocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Protocol2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProtocolBeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProtocolBeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_experience_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/au cas ou.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plot1.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +31,8 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="127" selection-end-column="21" />
+            <state relative-caret-position="498">
+              <caret line="90" column="21" lean-forward="true" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -28,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/src/Evaluation.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="605">
-              <caret line="285" lean-forward="true" selection-start-line="285" selection-end-line="285" />
+              <caret line="281" lean-forward="true" selection-start-line="281" selection-end-line="281" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -40,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/src/Sequence.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="246">
-              <caret line="162" column="67" lean-forward="true" selection-start-line="162" selection-start-column="67" selection-end-line="162" selection-end-column="67" />
+              <caret line="162" column="40" lean-forward="true" selection-start-line="162" selection-start-column="40" selection-end-line="162" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,8 +64,8 @@
       <file leaf-file-name="MultiServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="707">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -60,8 +73,8 @@
       <file leaf-file-name="MultiServerThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MultiServerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+            <state relative-caret-position="459">
+              <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -70,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/src/Protocol.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="416">
-              <caret line="25" column="69" selection-start-line="25" selection-start-column="69" selection-end-line="25" selection-end-column="69" />
+              <caret line="32" column="69" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -78,7 +91,7 @@
       <file leaf-file-name="MultiServerBeta.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MultiServerBeta.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="68">
               <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
             </state>
           </provider>
@@ -87,17 +100,8 @@
       <file leaf-file-name="ProtocolBeta.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ProtocolBeta.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Protocol2.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Protocol2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+            <state relative-caret-position="238">
+              <caret line="14" column="76" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -138,8 +142,8 @@
         <option value="$PROJECT_DIR$/src/MultiServer.java" />
         <option value="$PROJECT_DIR$/src/MultiServerThread.java" />
         <option value="$PROJECT_DIR$/src/Protocol.java" />
-        <option value="$PROJECT_DIR$/src/Client.java" />
         <option value="$PROJECT_DIR$/src/Evaluation.java" />
+        <option value="$PROJECT_DIR$/src/Client.java" />
       </list>
     </option>
   </component>
@@ -687,8 +691,8 @@
     <entry file="file://$PROJECT_DIR$/src/Graph.java" />
     <entry file="file://$PROJECT_DIR$/src/MultiServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+        <state relative-caret-position="459">
+          <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -708,29 +712,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiServerBeta.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="68">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ProtocolBeta.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+        <state relative-caret-position="238">
+          <caret line="14" column="76" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Protocol.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
-          <caret line="25" column="69" selection-start-line="25" selection-start-column="69" selection-end-line="25" selection-end-column="69" />
+          <caret line="32" column="69" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Evaluation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="605">
-          <caret line="285" lean-forward="true" selection-start-line="285" selection-end-line="285" />
+          <caret line="281" lean-forward="true" selection-start-line="281" selection-end-line="281" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -739,15 +743,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="707">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Sequence.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
-          <caret line="162" column="67" lean-forward="true" selection-start-line="162" selection-start-column="67" selection-end-line="162" selection-end-column="67" />
+          <caret line="162" column="40" lean-forward="true" selection-start-line="162" selection-start-column="40" selection-end-line="162" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -756,8 +760,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="127" selection-end-column="21" />
+        <state relative-caret-position="498">
+          <caret line="90" column="21" lean-forward="true" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
         </state>
       </provider>
     </entry>

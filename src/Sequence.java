@@ -159,7 +159,6 @@ public class Sequence {
 
         //generate a list of type
         if (this.type_complexity > 0) {
-            int[] type_table = new int[this.type_complexity];
             int type_line = Integer.parseInt(line.split("@@@")[0]);
             type = line.split("@@@")[0];
             int[] random_table = randomTable(seed, 5);
@@ -187,7 +186,6 @@ public class Sequence {
      * @return a table where the indices are randomized
      */
     private static int[] randomTable(long seed, int length) {
-
         Random generator = new Random(seed);
         int[] random_table = new int[length];
         int[] table_elem = new int[length];
@@ -204,15 +202,11 @@ public class Sequence {
             random_table[i] = table_elem[r];
             table_elem[r] = -1;
         }
-
         return random_table;
     }
 
-
     @Override
     public boolean equals(Object obj) {
-
         return (obj instanceof Sequence) && ( this.toString().equals(obj.toString()) );
     }
-
 }

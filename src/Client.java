@@ -2,16 +2,10 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 
 public class Client {
-
     /**
      * args[0] : hostname, device name
      * args[1] : port number
@@ -23,6 +17,7 @@ public class Client {
         //java Client -h LAPTOP-71465AB6 -p 4444 -f dbdata.txt -rc 10 -tc 1 -l 10 -rv 8 -pa 1000 -t
         //java Client -h LAPTOP-TPLG6GOL -p 1444 -f dbdata.txt
 
+        //Default parameters
         String hostName = "";
         int portNumber = -1;
         String dbfile = "";
@@ -32,6 +27,8 @@ public class Client {
         int sequence_length = -1;
         int request_variance = 0;
         int pause = 1000;
+
+        //Change the parameters to match the ones given in args
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-h" :
@@ -90,10 +87,12 @@ public class Client {
             System.exit(1);
         }
 
-        String[] file ;
+        //Load dbdata.text (in case the test parameter is activated)
+        String[] file;
         if (test) file = Sequence.loadFile(dbfile);
         else file = null;
 
+        //Stores the response times for each client
         ArrayList<Long> result = clientExecution(hostName,
                 portNumber,
                 test,
@@ -103,7 +102,6 @@ public class Client {
                 request_variance,
                 pause,
                 file);
-        //System.out.println(result.toString());
         if (result == null) System.exit(1);
     }
 
@@ -133,8 +131,6 @@ public class Client {
                         request_variance,
                         file);
             else stdIn = new BufferedReader(new InputStreamReader(System.in));
-
-            //System.out.println("Client ready !");
 
             final String[] fromUser = new String[1];
             final String[] fromServer = new String[1];
