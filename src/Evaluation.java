@@ -13,6 +13,7 @@ public class Evaluation {
 
     public static void main(String[] args) {
         //java Evaluation -h LAPTOP-71465AB6 -p 4444 -f dbdata_simple.txt -rc 10 -tc 1 -l 2 -rv 2 -pa 1000 -r 2 -nc 2 -s 0 -e 5 -st 1 -v type_complexity
+        //java Evaluation -h LAPTOP-TPLG6GOL -p 1444 -f dbdata.txt -rc 40 -tc 1 -l 6 -rv 6 -pa 500 -r 5 -nc 2 -s 1 -e 102 -st 10 -v nbr_client
 
         String hostName = "";
         int portNumber = -1;
@@ -23,7 +24,7 @@ public class Evaluation {
         int request_variance = 0;
         int pause = 1000;
         int start = 0;
-        int end = 1;
+        int end = 0;
         int step = 1;
         int repetition = 1;
         int nbr_client = 1;
@@ -122,6 +123,7 @@ public class Evaluation {
                 ArrayList<Object> clients_results = new ArrayList<>();
                 final int[] flag = {nbr_client};
                 for (int k = 0; k < nbr_client; k++) {
+                    //System.out.println(k);
                     String finalVariant = variant;
                     int finalI = i;
                     String finalHostName = hostName;
@@ -147,7 +149,8 @@ public class Evaluation {
                         synchronized (syn2) { flag[0]--; }
                     }).start();
                 }
-                while(flag[0] > 0);
+                while(flag[0] > 0){
+                }
                 repetions.add(clients_results);
             }
             data_to_plot.add(new Object[]{i, repetions});
@@ -228,7 +231,15 @@ public class Evaluation {
                         pause,
                         file);
             default :
-                return null;
+                return Client.clientExecution(hostName,
+                        portNumber,
+                        true,
+                        regex_complexity,
+                        type_complexity,
+                        sequence_length,
+                        request_variance,
+                        pause,
+                        file);
         }
     }
 

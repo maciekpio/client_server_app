@@ -21,6 +21,7 @@ public class Client {
      */
     public static void main(String[] args) throws IOException {
         //java Client -h LAPTOP-71465AB6 -p 4444 -f dbdata.txt -rc 10 -tc 1 -l 10 -rv 8 -pa 1000 -t
+        //java Client -h LAPTOP-TPLG6GOL -p 1444 -f dbdata.txt
 
         String hostName = "";
         int portNumber = -1;
@@ -100,7 +101,7 @@ public class Client {
                 request_variance,
                 pause,
                 file);
-        System.out.println(result.toString());
+        //System.out.println(result.toString());
         if (result == null) System.exit(1);
     }
 
@@ -153,7 +154,7 @@ public class Client {
                     fromUser[0] = stdIn.readLine();
                     if (fromUser[0] != null) {
                         t = new Thread(() -> {
-                            startTime[0] = System.nanoTime();
+                            startTime[0] = System.currentTimeMillis();
                             out.println(fromUser[0]);
                             while (true) {
                                 try {
@@ -165,10 +166,10 @@ public class Client {
                                     e.printStackTrace();
                                 }
                             }
-                            endTime[0] = System.nanoTime();
+                            endTime[0] = System.currentTimeMillis();
                             duration[0] = endTime[0] - startTime[0];
                             request_durations.add(duration[0]);
-                            //System.out.println("duration : " + duration[0]);
+                            System.out.println("duration : " + duration[0]);
                             synchronized (syn) { flag[0]--; }
                         });
                         t.start();

@@ -18,6 +18,11 @@ public class MultiServerThread extends Thread {
     }
 
     public void run() {
+        try {
+            System.out.println("Buffer size: "+this.socket.getReceiveBufferSize());
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
         try (
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
@@ -27,17 +32,17 @@ public class MultiServerThread extends Thread {
             String inputLine;
             Protocol p = new Protocol();
             while ((inputLine = in.readLine()) != null) {
+                System.out.println("requete recue");
                 String finalInputLine = inputLine;
                 (new Thread(){
                     @Override
                     public void run() {
-                        System.out.println("le serveur a recu une request \n");
                         String outputLine;
-                        if(finalInputLine.matches("(.*);(.*)")) {
+                        if(finalInputLine.contains(";")) {
                             try {
                                 outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.file_in_table))).get();
                                 out.println(outputLine);
-                                System.out.println("le serveur a renvoye une reponse \n");
+                                System.out.println("reponse envoye");
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {

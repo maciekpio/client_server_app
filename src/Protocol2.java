@@ -1,12 +1,7 @@
-import java.net.*;
-import java.io.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Protocol {
+public class Protocol2 {
     public String processInput(String theInput, Object[][] file_in_table) {
         String theOutput = null;
         String string1 = theInput.split(";")[0];
@@ -22,9 +17,9 @@ public class Protocol {
         String request = theInput.split(";")[1];
         String result = "";
         for(int i=0; i < file_in_table.length; i++){
-            if(list.contains(file_in_table[i][0]) && file_in_table[i][1].toString().contains(request)) {
-                result = result.concat(file_in_table[i][1].toString() + "\r\n");
-            }
+            if(list.contains(file_in_table[i][0]))
+                if(((String) file_in_table[i][1]).contains(request))
+                    result=result.concat(file_in_table[i][1].toString() + "\r\n");
         }
         theOutput = result;
         return theOutput;

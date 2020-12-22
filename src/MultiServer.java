@@ -18,7 +18,7 @@ public class MultiServer {
     */
 
     protected static Object[][] file_in_table;
-    protected static ExecutorService executor= Executors.newFixedThreadPool(3);
+    protected static ExecutorService executor= Executors.newFixedThreadPool(1);
 
     public static Object[][] getTable(final String pathToFile) throws IOException {
         final String rawFileContents = new String(Files.readAllBytes(Paths.get(pathToFile)));
@@ -43,7 +43,6 @@ public class MultiServer {
     }
 
     public static void main(String[] args) throws IOException {
-
         if (args.length != 2) {
             System.err.println("Usage: java MultiServer <port number>");
             System.exit(1);
@@ -56,7 +55,12 @@ public class MultiServer {
         int portNumber = Integer.parseInt(args[0]);
         boolean listening = true;
 
-        try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+
+        try (ServerSocket serverSocket = new ServerSocket(portNumber,1)) {
+            //setting the buffer size with the help of setReceiveBufferSize() method
+            //serverSocket.setReceiveBufferSize(1);
+            //getReceiveBufferSize() method returns the buffer size set for this socket
+            System.out.println("Buffer size: "+serverSocket.getReceiveBufferSize());
             while (listening) {
                 new MultiServerThread(serverSocket.accept()).start();
             }
