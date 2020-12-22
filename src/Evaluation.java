@@ -23,7 +23,7 @@ public class Evaluation {
         int request_variance = 0;
         int pause = 1000;
         int start = 0;
-        int end = 1;
+        int end = 0;
         int step = 1;
         int repetition = 1;
         int nbr_client = 1;
@@ -228,7 +228,15 @@ public class Evaluation {
                         pause,
                         file);
             default :
-                return null;
+                return Client.clientExecution(hostName,
+                    portNumber,
+                    true,
+                    regex_complexity,
+                    type_complexity,
+                    sequence_length,
+                    request_variance,
+                    pause,
+                    file);
         }
     }
 

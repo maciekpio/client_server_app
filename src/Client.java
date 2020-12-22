@@ -140,6 +140,7 @@ public class Client {
             Random generator = new Random();
             final long[] duration = new long[1];
             Object syn = new Object();
+            Object syn2 = new Object();
             final int[] flag = new int[1];
             if (test)  flag[0] = sequence_length;
             else flag[0] = 0;
@@ -167,7 +168,7 @@ public class Client {
                             }
                             endTime[0] = System.nanoTime();
                             duration[0] = endTime[0] - startTime[0];
-                            request_durations.add(duration[0]);
+                            synchronized (syn2) {request_durations.add(duration[0]);}
                             //System.out.println("duration : " + duration[0]);
                             synchronized (syn) { flag[0]--; }
                         });
@@ -199,11 +200,6 @@ public class Client {
 
     private static BufferedReader feedBuffer(long seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String[] file) {
         Sequence seq1 = new Sequence(seed, regex_complexity, type_complexity, sequence_length, request_variance, file);
-        /*seq1.save();
-        String sequence_file_path =  "sequences/" + String.valueOf(seed) + ".txt";
-        File file_sequence = new File(sequence_file_path);
-        BufferedReader stdIn = new BufferedReader(new FileReader(file_sequence));
-        for (int i = 0; i < 5; i++) stdIn.readLine();*/
         String buffer_input = "";
         for (int i = 0; i < seq1.sequence.length; i++) buffer_input += seq1.sequence[i] + "\n";
         Reader inputString = new StringReader(buffer_input);

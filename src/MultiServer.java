@@ -57,6 +57,7 @@ public class MultiServer {
         boolean listening = true;
 
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+            serverSocket.setReceiveBufferSize(1);
             while (listening) {
                 new MultiServerThread(serverSocket.accept()).start();
             }
