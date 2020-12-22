@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProtocolBeta {
     public String processInput(String theInput, Object[][] file_in_table) {
@@ -18,10 +15,11 @@ public class ProtocolBeta {
         List<Integer> list = Arrays.asList(intlist);
         String request = theInput.split(";")[1];
         String result = "";
-        //System.out.println("avant 1er for");
+        ArrayList<String> result_list = new ArrayList<>();
         for(int i=0; i < file_in_table.length; i++){
             if(list.contains(file_in_table[i][0]) && file_in_table[i][1].toString().contains(request)) {
-                result = result.concat(file_in_table[i][1].toString() + "\r\n");
+                if (!result_list.contains(file_in_table[i][1].toString()))
+                    result_list.add(file_in_table[i][1].toString());
             }
         }
         theOutput = result;
