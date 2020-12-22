@@ -90,7 +90,9 @@ public class Client {
             System.exit(1);
         }
 
-        String[] file = Sequence.loadFile(dbfile);
+        String[] file ;
+        if (test) file = Sequence.loadFile(dbfile);
+        else file = null;
 
         ArrayList<Long> result = clientExecution(hostName,
                 portNumber,

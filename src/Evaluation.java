@@ -155,7 +155,7 @@ public class Evaluation {
             }
             data_to_plot.add(new Object[]{i, repetions});
         }
-        save();
+        save(variant, start, end, step, regex_complexity, type_complexity, sequence_length, request_variance, pause);
 
     }
 
@@ -266,11 +266,20 @@ public class Evaluation {
         return data_to_string.substring(0, data_to_string.length()-1);
     }
 
-    private static void save() {
+    private static void save(String variant, int start, int end, int step, int regex_complexity, int type_complexity, int sequence_length, int request_variance, int pause) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String file_path = "experiences/" /*+ formatter.format(date)*/ +"_experience_" + experience + ".txt";
-        experience++;
+        String file_path = "experiences/_experience_" +
+                            variant + "_" +
+                            start + "_" +
+                            end + "_" +
+                            step + "_" +
+                            regex_complexity + "_" +
+                            type_complexity + "_" +
+                            sequence_length + "_" +
+                            request_variance + "_" +
+                            pause + "_" +
+                            ".txt";
         File file = new File(file_path);
 
         if (file.exists()) return;
