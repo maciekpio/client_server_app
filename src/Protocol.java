@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Protocol {
     public String processInput(String theInput, Map<Integer, HashSet<String>> map) {
-        String theOutput = null;
+        String theOutput = "";
         String string1 = theInput.split(";")[0];
         Integer[] intlist;
         final Integer[] allTypes = {0,1,2,3,4,5};
@@ -17,17 +17,16 @@ public class Protocol {
         }
         List<Integer> list = Arrays.asList(intlist);
         String request = theInput.split(";")[1];
-        String result = "";
-        //System.out.println("avant 1er for");
+        ArrayList<String> result_list = new ArrayList<>();
         for(int i=0;i<intlist.length;i++){
-            //System.out.println("avant 2eme for");
             for(String sentence : map.get(intlist[i])){
                 if(sentence.contains(request)){
-                    result=result.concat(sentence+"\n");
+                    if (!result_list.contains(sentence))
+                        result_list.add(sentence);
                 }
             }
         }
-        theOutput = result;
+        for (String result : result_list) theOutput += result + '\n';
         return theOutput;
     }
 }
