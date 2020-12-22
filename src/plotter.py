@@ -35,8 +35,8 @@ def plot(input):
 		data_to_plot.append(data)
 	fig1, ax1 = plt.subplots()
 	ax1.set_title('Basic Plot')
-	ax1.boxplot(data_to_plot)
-	fig1.savefig("plot.png",bbox_inches='tight')
+	ax1.boxplot(data_to_plot,showfliers=False, notch=True)
+	fig1.savefig("plot1.png",bbox_inches='tight')
 	plt.show()
 
 
