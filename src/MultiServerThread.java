@@ -5,11 +5,13 @@ import java.util.concurrent.ExecutionException;
 
 public class MultiServerThread extends Thread {
     private Socket socket = null;
+    private String protocol;
 
     //Constructor
-    public MultiServerThread(Socket socket) {
+    public MultiServerThread(Socket socket, String protocol) {
         super("MultiServerThread");
         this.socket = socket;
+        this.protocol = protocol;
     }
 
     public void run() {
@@ -20,7 +22,11 @@ public class MultiServerThread extends Thread {
                                 socket.getInputStream()));
         ) {
             String inputLine;
-            Protocol p = new Protocol();
+
+            Protocol p;
+            if (this.protocol.equals("basic")) p = new BasicProtocol();
+            else p = new AdvancedProtocol();
+
             while ((inputLine = in.readLine()) != null) {
                 String finalInputLine = inputLine;
                 //Launching a thread when the server receive a request
@@ -30,17 +36,17 @@ public class MultiServerThread extends Thread {
                         String outputLine;
                         if(finalInputLine.contains(";")) {
                             try {
-                                long serverStart=System.currentTimeMillis();
 
                                 //Launching a thread from the server's thread pool to process the request
-                                outputLine=(MultiServer.executor.submit(()->p.processInput(finalInputLine, MultiServer.map))).get();
+                                if (protocol.equals("basic"))
+                                    outputLine=(MultiServer.executor.submit(()->p.basic_processInput(finalInputLine, MultiServer.file_in_table))).get();
 
-                                long serverEnd=System.currentTimeMillis();
+                                else
+                                    outputLine=(MultiServer.executor.submit(()->p.advanced_processInput(finalInputLine, MultiServer.map))).get();
 
                                 //Sending the response to the client
                                 out.println(outputLine);
 
-                                synchronized (MultiServer.syn_server_time) {MultiServer.server_time.add(serverEnd-serverStart);}
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {

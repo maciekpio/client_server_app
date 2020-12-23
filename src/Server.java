@@ -55,7 +55,7 @@ public class Server {
             String inputLine, outputLine;
 
             // Initiate conversation with client
-            Protocol p = new Protocol();
+            AdvancedProtocol p = new AdvancedProtocol();
 
             while ((inputLine = in.readLine()) != null) {
                 outputLine = p.processInput(inputLine,file_in_table);

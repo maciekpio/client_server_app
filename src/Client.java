@@ -145,7 +145,7 @@ public class Client {
             else flag[0] = 0;
             for (int i = 0; condition(test, i, sequence_length); i++) {
                 if (test) {
-                    long pa = (long) ((Math.abs(generator.nextGaussian()) * (pause / 2)) + pause);
+                    long pa =  (long)( -Math.log(1.0 - generator.nextDouble()) * (double)pause );
                     sleep(pa);
                 }
                 Thread t = null;

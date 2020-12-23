@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class ProtocolBeta {
-    public String processInput(String theInput, Object[][] file_in_table) {
+public class BasicProtocol extends Protocol {
+    public String basic_processInput(String theInput, Object[][] file_in_table) {
         String theOutput = null;
 
         //Retrieve the <types> and <regex> part of the request

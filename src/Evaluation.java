@@ -263,6 +263,7 @@ public class Evaluation {
     }
 
     private static void save(String variant, int start, int end, int step, int regex_complexity, int type_complexity, int sequence_length, int request_variance, int pause) {
+        Calendar rightNow = Calendar.getInstance();
         String file_path = "experiences/Client_experience_" +
                             variant + "_" +
                             start + "_" +
@@ -273,6 +274,7 @@ public class Evaluation {
                             sequence_length + "_" +
                             request_variance + "_" +
                             pause + "_" +
+                            MultiServer.nThreads + "_" +
                             ".txt";
         File file = new File(file_path);
 

@@ -2,20 +2,25 @@ import java.net.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static java.lang.Thread.sleep;
+import static java.nio.file.StandardOpenOption.*;
 
 public class MultiServer {
     //Server's response times
     static ArrayList<Long> server_time = new ArrayList<>();
-    static Object syn_server_time = new Object();
+    final static Object syn_server_time = new Object();
     //The map containing the dbdata.txt file in memory
     static Map<Integer, HashSet<String>> map;
+    //The 2D array containing the dbdata.txt file in memory
+    protected static Object[][] file_in_table;
     //Server's thread pool
-    protected static ExecutorService executor= Executors.newFixedThreadPool(4);
+    static final int nThreads = 4;
+    protected static ExecutorService executor= Executors.newFixedThreadPool(nThreads);
 
     //Saving the dbdata.txt in main memory
     public static Map<Integer, HashSet<String>> getIdMap(final String pathToFile) throws IOException {
@@ -41,18 +46,46 @@ public class MultiServer {
         return map;
     }
 
+    public static Object[][] getTable(final String pathToFile) throws IOException {
+        final String rawFileContents = new String(Files.readAllBytes(Paths.get(pathToFile)));
+        final String[] fileLines = rawFileContents.split("\\r?\\n");
+        final Object[][] file_in_table = new Object[fileLines.length][2];
+        int percent = 0;
+        int file_length = fileLines.length;
+        for ( int i = 0; i < file_length; i++) {
+            if (i*100/file_length > percent) {
+                if(percent%10==0) System.out.println(i*100/file_length + "%");
+                percent++;
+            }
+            String[] line_split = fileLines[i].split("@@@");
+            try {
+                file_in_table[i][0] = Integer.parseInt(line_split[0]);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            file_in_table[i][1] = line_split[1];
+        }
+        return file_in_table;
+    }
+
     /**
      * args[0] : port number
      * args[1] : the path to the dbdata.txt file
+     * args[2] : protocol name
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        if (args.length != 2) {
-            System.err.println("Usage: java MultiServer <port number>");
+        if (args.length != 3) {
+            System.err.println("Usage: java MultiServer <port number> <file_name> <protocol_name>");
             System.exit(1);
         }
 
-        map = getIdMap(args[1]);
+        if (args[2].equals("basic")) file_in_table = getTable(args[1]);
+        else if (args[2].equals("advanced"))   map = getIdMap(args[1]);
+        else {
+            System.err.println("Usage: <protocol_name> should be 'basic' or 'advanced'");
+            System.exit(1);
+        }
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         new Thread(() -> {
@@ -75,35 +108,33 @@ public class MultiServer {
         //Launching a new MultiServerThread each time a client connect
         try (ServerSocket serverSocket = new ServerSocket(portNumber,100)) {
             while (listening) {
-                new MultiServerThread(serverSocket.accept()).start();
+                new MultiServerThread(serverSocket.accept(), args[2]).start();
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + portNumber);
             System.exit(-1);
         }
         executor.shutdown();
-        save();
     }
 
     private static void save() {
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         int minutes = rightNow.get(Calendar.MINUTE);
-        String file_path = "experiences/Server_experience_" + hour + "h" + minutes + ".txt";
-        File file = new File(file_path);
+        String file_path = "experiences/Server_experience.txt";
+
         Long mean = new Long(0);
-        for(Long time : server_time) mean += time;
+        for(Long time : server_time){
+            System.out.println(time);
+            mean += time;
+        }
         mean /= server_time.size();
 
         synchronized (syn_server_time) {server_time = new ArrayList<>();}
 
-        if (file.exists()) return;
-
+        String text = hour + "h" + minutes + " : " + mean.toString() + "\n";
         try {
-            file.createNewFile();
-            FileWriter myWriter = new FileWriter(file);
-            myWriter.write(mean.toString());
-            myWriter.close();
+            Files.write(Paths.get(file_path), text.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException ex) {
             System.out.println(ex);
         }
