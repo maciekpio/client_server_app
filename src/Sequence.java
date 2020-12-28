@@ -11,6 +11,16 @@ public class Sequence {
     private int sequence_length;    //the number of request in the sequence
     private int request_variance;   //the the number of different request in the sequence, if request_variance == sequence_length all the request are different
 
+
+    /**
+    * @param sequence_seed: the seed to generate the same sequence
+    * @param regex_complexity: the number of character in the regex, 0 < regex_complexity
+    * @param type_complexity: the number of type number in the request, 0 <= type_complexity <= 5
+    * @param sequence_length: the number of request in the sequence
+    * @param request_variance: the the number of different request in the sequence, if request_variance == sequence_length all the request are different
+    * @param file: the "dbdata.txt" loaded in a array where each line of the file is an elemment of the array.
+    * this constructor will build a sequence with the specified propreties.
+    */
     public Sequence(long sequence_seed, int regex_complexity, int type_complexity, int sequence_length, int request_variance, String[] file) {
 
         this.sequence_seed = sequence_seed;
@@ -18,11 +28,16 @@ public class Sequence {
         this.type_complexity = type_complexity;
         this.sequence_length = sequence_length;
         this.request_variance = request_variance;
-
+        //build the sequence
         this.sequence = generateSequence(file);
     }
 
 
+    /**
+    * @param sequence_seed: the seed to generate the same sequence
+    * this constructor will load a sequence from a file where a previous sequence where save
+    * using the Sequence.save() function only if the sequence corresponding to the seed was already genarated.
+    */
     public Sequence(long sequence_seed) {
 
         try {
@@ -35,11 +50,13 @@ public class Sequence {
 
                 this.sequence_seed = sequence_seed;
                 br.readLine();
+                //load the specific paramater of the sequence
                 this.regex_complexity = Integer.valueOf(br.readLine());
                 this.type_complexity = Integer.valueOf(br.readLine());
                 this.sequence_length = Integer.parseInt(br.readLine());
                 this.request_variance = Integer.parseInt(br.readLine());
 
+                //getting each request
                 ArrayList<String> sequence_AL = new ArrayList<String>();
                 String line;
                 while ((line = br.readLine()) != null)
@@ -55,10 +72,16 @@ public class Sequence {
     }
 
 
+    /**
+    * This function will save the seuence into a file using the Sequence.toString() format
+    * and the seed as file name.
+    * the file can be found in the "sequences/" folder.
+    */
     public void save() {
         String file_path = "sequences/" + String.valueOf(this.sequence_seed) + ".txt";
         File file = new File(file_path);
 
+        //save only if the file does not exist i.e. the sequence was not already saved
         if (file.exists()) return;
 
         try {
@@ -71,6 +94,19 @@ public class Sequence {
         }
     }
 
+
+    /**
+    * @return a String representation of the sequence in the format :
+    * sequence_seed
+    * regex_complexity
+    * type_complexity
+    * sequence_length
+    * request_variance
+    * request1
+    * request2
+    * request3
+    * ...
+    */
     public String toString() {
 
         String sequence_seed    = String.valueOf(this.sequence_seed);
@@ -90,23 +126,28 @@ public class Sequence {
 
 
     /**
-     * @param file : the file dbdata.txt loaded in an array where each line are an entry
+     * @param file : the file "dbdata.txt" loaded in an array where each line are an entry
      * @return a sequence of request
      */
     public String[] generateSequence(String[] file) {
 
+    	//the array contening the sequence
         String[] sequence = new String[this.sequence_length];
+        //the array contening the sequence where there is no doublon
         String[] unique_request = new String[this.request_variance];
 
+        //feed the unique_request array
         Random generator = new Random(this.sequence_seed);
         for (int i = 0; i < this.request_variance; i++) {
             long request_seed = generator.nextLong();
             unique_request[i] = generateRequest(request_seed, file);
         }
 
+        //create two array where the indice are mixed
         int[] random_indices_UR  = randomTable(this.sequence_seed, unique_request.length);
         int[] random_indices_SEQ = randomTable(this.sequence_seed+1, sequence.length);
 
+        //feed the array containing the sequence with request with request randomly take in the unique_request one
         for (int i = 0; i < this.sequence_length; i++)
             sequence[random_indices_SEQ[i]] = unique_request[random_indices_UR[(i % unique_request.length)]];
 
@@ -116,7 +157,7 @@ public class Sequence {
 
     /**
      * @param file_path : the path to the file to store in the table
-     * @return store each line of the file into a string
+     * @return an array list where each element is a line of the file
      */
     public static String[] loadFile(String file_path) {
         try {
@@ -140,8 +181,8 @@ public class Sequence {
 
     /**
      * @param seed : a seed to generate the same request
-     * @param file : the dbdata.txt file store in table where each line is a string
-     * @return a request <type>;<regex>
+     * @param file : the "dbdata.txt" file store in table where each line is a string
+     * @return a request as a String with the format "<type>;<regex>"
      */
     public String generateRequest(long seed, String[] file) {
 
